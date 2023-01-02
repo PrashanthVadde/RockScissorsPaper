@@ -35,37 +35,63 @@ class GamingApp extends Component {
 
   renderUpdates = id => {
     const {choicesList} = this.props
-    const choicesListCopy = [...choicesList]
-    const shuffledChoiceList = choicesListCopy.sort(() => Math.random() - 0.5)
+    // const choicesListCopy = [...choicesList]
+    // const shuffledChoiceList = choicesListCopy.sort(() => Math.random() - 0.5)
+
+    const indexForOpponentChoice =
+      Math.ceil(Math.random() * choicesList.length) - 1
+
+    console.log(
+      'Math.random vlaues',
+      Math.ceil(Math.random() * choicesList.length) - 1,
+    )
 
     const ourChoiceItem = choicesList.filter(eachChoice => eachChoice.id === id)
 
     const renderResultMessage = () => {
-      if (id === 'ROCK' && shuffledChoiceList[0].id === 'ROCK') {
+      if (id === 'ROCK' && choicesList[indexForOpponentChoice].id === 'ROCK') {
         return 'IT IS DRAW'
       }
-      if (id === 'ROCK' && shuffledChoiceList[0].id === 'SCISSORS') {
+      if (
+        id === 'ROCK' &&
+        choicesList[indexForOpponentChoice].id === 'SCISSORS'
+      ) {
         return 'YOU WON'
       }
-      if (id === 'ROCK' && shuffledChoiceList[0].id === 'PAPER') {
+      if (id === 'ROCK' && choicesList[indexForOpponentChoice].id === 'PAPER') {
         return 'YOU LOSE'
       }
-      if (id === 'SCISSORS' && shuffledChoiceList[0].id === 'SCISSORS') {
+      if (
+        id === 'SCISSORS' &&
+        choicesList[indexForOpponentChoice].id === 'SCISSORS'
+      ) {
         return 'IT IS DRAW'
       }
-      if (id === 'SCISSORS' && shuffledChoiceList[0].id === 'PAPER') {
+      if (
+        id === 'SCISSORS' &&
+        choicesList[indexForOpponentChoice].id === 'PAPER'
+      ) {
         return 'YOU WON'
       }
-      if (id === 'SCISSORS' && shuffledChoiceList[0].id === 'ROCK') {
+      if (
+        id === 'SCISSORS' &&
+        choicesList[indexForOpponentChoice].id === 'ROCK'
+      ) {
         return 'YOU LOSE'
       }
-      if (id === 'PAPER' && shuffledChoiceList[0].id === 'PAPER') {
+      if (
+        id === 'PAPER' &&
+        choicesList[indexForOpponentChoice].id === 'PAPER'
+      ) {
         return 'IT IS DRAW'
       }
-      if (id === 'PAPER' && shuffledChoiceList[0].id === 'SCISSORS') {
+      if (
+        id === 'PAPER' &&
+        choicesList[indexForOpponentChoice].id === 'SCISSORS'
+      ) {
         return 'YOU LOSE'
       }
-      if (id === 'PAPER' && shuffledChoiceList[0].id === 'ROCK') {
+      if (id === 'PAPER' && choicesList[indexForOpponentChoice].id === 'ROCK') {
         return 'YOU WON'
       }
       return null
@@ -80,14 +106,14 @@ class GamingApp extends Component {
       this.setState(prevState => ({score: prevState.score + 1}))
     }
     if (renderResultMessage() === 'YOU LOSE') {
-      console.log('LOSS CONDITION LOOGGED')
+      console.log('LOSS CONDITION LOGGED')
       this.setState(prevState => ({score: prevState.score - 1}))
     }
 
     this.setState({
       onClickChoiceItem: true,
       ourImageUrl: ourChoiceItem[0].imageUrl,
-      opponentImageUrl: shuffledChoiceList[0].imageUrl,
+      opponentImageUrl: choicesList[indexForOpponentChoice].imageUrl,
     })
   }
 
